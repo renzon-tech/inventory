@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#0f172a;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    /* SCROLLBAR */
+
+    ::-webkit-scrollbar{
+      width:8px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:#38bdf8;
+      border-radius:10px;
+    }
+
+    /* NAVBAR */
+
+    nav{
+      width:100%;
+      padding:18px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:1000;
+      background:rgba(15,23,42,0.8);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:700;
+      color:#38bdf8;
+    }
+
+    nav ul{
+      display:flex;
+      gap:30px;
+      list-style:none;
+    }
+
+    nav ul li a{
+      text-decoration:none;
+      color:white;
+      transition:0.3s;
+      font-weight:500;
+    }
+
+    nav ul li a:hover{
+      color:#38bdf8;
+    }
+
+    .menu-btn{
+      display:none;
+      font-size:28px;
+      cursor:pointer;
+    }
+
+    /* HERO */
+
+    .hero{
+      width:100%;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:70px;
+      padding:120px 8% 60px;
+      flex-wrap:wrap;
+      position:relative;
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      width:350px;
+      height:350px;
+      background:#38bdf8;
+      filter:blur(150px);
+      opacity:0.2;
+      top:80px;
+      left:-100px;
+      z-index:-1;
+    }
+
+    .hero-image img{
+      width:320px;
+      height:320px;
+      object-fit:cover;
+      border-radius:50%;
+      border:5px solid #38bdf8;
+      box-shadow:0 0 40px rgba(56,189,248,0.5);
+      animation:float 4s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%{transform:translateY(0px);} 
+      50%{transform:translateY(-15px);} 
+      100%{transform:translateY(0px);} 
+    }
+
+    .hero-text{
+      max-width:650px;
+    }
+
+    .hero-text h3{
+      color:#38bdf8;
+      font-size:24px;
+      margin-bottom:10px;
+    }
+
+    .hero-text h1{
+      font-size:65px;
+      line-height:1.1;
+      margin-bottom:20px;
+    }
+
+    .hero-text p{
+      color:#cbd5e1;
+      line-height:1.8;
+      margin-bottom:30px;
+    }
+
+    .buttons{
+      display:flex;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:14px 28px;
+      background:#38bdf8;
+      color:#000;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:600;
+      transition:0.3s;
+    }
+
+    .btn:hover{
+      transform:translateY(-5px);
+      box-shadow:0 10px 25px rgba(56,189,248,0.3);
+    }
+
+    .btn-outline{
+      background:transparent;
+      border:2px solid #38bdf8;
+      color:#38bdf8;
+    }
+
+    /* SECTION */
+
+    section{
+      padding:90px 8%;
+    }
+
+    .section-title{
+      font-size:42px;
+      margin-bottom:50px;
+      text-align:center;
+      color:#38bdf8;
+    }
+
+    /* CARDS */
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:#1e293b;
+      padding:30px;
+      border-radius:20px;
+      transition:0.4s;
+      border:1px solid rgba(255,255,255,0.05);
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+      box-shadow:0 10px 35px rgba(0,0,0,0.3);
+    }
+
+    .card h3{
+      margin-bottom:15px;
+      color:#38bdf8;
+    }
+
+    .card p,
+    .card li{
+      color:#cbd5e1;
+      line-height:1.7;
+    }
+
+    .card ul{
+      padding-left:18px;
+    }
+
+    /* EXPERIENCE */
+
+    .timeline{
+      display:flex;
+      flex-direction:column;
+      gap:25px;
+    }
+
+    /* CONTACT */
+
+    .contact-box{
+      max-width:700px;
+      margin:auto;
+      text-align:center;
+      background:#1e293b;
+      padding:40px;
+      border-radius:20px;
+    }
+
+    .contact-box p{
+      margin:15px 0;
+      font-size:18px;
+      color:#cbd5e1;
+    }
+
+    footer{
+      padding:25px;
+      text-align:center;
+      background:#111827;
+      color:#cbd5e1;
+    }
+
+    /* SCROLL ANIMATION */
+
+    .hidden{
+      opacity:0;
+      transform:translateY(80px);
+      transition:1s;
+    }
+
+    .show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:900px){
+
+      .hero-text h1{
+        font-size:50px;
+      }
+
+    }
+
+    @media(max-width:768px){
+
+      .menu-btn{
+        display:block;
+      }
+
+      nav ul{
+        position:absolute;
+        top:75px;
+        left:0;
+        width:100%;
+        background:#111827;
+        flex-direction:column;
+        align-items:center;
+        padding:25px 0;
+        display:none;
+      }
+
+      nav ul.active{
+        display:flex;
+      }
+
+      .hero{
+        text-align:center;
+      }
+
+      .hero-text h1{
+        font-size:40px;
+      }
+
+      .hero-image img{
+        width:260px;
+        height:260px;
+      }
+
+      .buttons{
+        justify-content:center;
+      }
+
+      .section-title{
+        font-size:34px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+    <div class="logo">My Porfolio</div>
+
+    <ul id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="menu-btn" id="menuBtn">☰</div>
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero hidden" id="about">
+
+    <div class="hero-image">
+      <img src="image.jpg" alt="Profile Picture">
+    </div>
+
+    <div class="hero-text">
+      <h3>IT Support / Network Administrator</h3>
+
+      <h1>Hi, I'm <span style="color:#38bdf8;">Renzon</span></h1>
+
+      <p>
+       Experienced in Network Administration, IT Support, Database Administration, and Freelance Technical Services with strong knowledge in troubleshooting computer systems, network configuration, hardware and software maintenance, and technical support. Skilled in resolving IT issues, maintaining system performance, configuring networks and firewalls, and assisting clients with reliable technical solutions. Passionate about technology, continuous learning, and providing efficient IT services.
+      </p>
+
+      <div class="buttons">
+        <a href="#contact" class="btn">Contact Me</a>
+        <a href="#skills" class="btn btn-outline">View Skills</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SKILLS -->
+
+  <section id="skills">
+
+    <h2 class="section-title hidden">Skills</h2>
+
+    <div class="grid">
+
+      <div class="card hidden">
+        <h3>Web Development</h3>
+        <p>HTML, CSS, Bootstrap, Basic JavaScript</p>
+      </div>
+
+      <div class="card hidden">
+        <h3>Programming</h3>
+        <p>Basic Knowledge in PHP, MySQL, Java</p>
+      </div>
+
+      <div class="card hidden">
+        <h3>Networking</h3>
+        <p>VLAN, DHCP, IP Addressing, Subnetting, Gateway Configuration, CISCO Configuration</p>
+      </div>
+
+      <div class="card hidden">
+        <h3>Firewall</h3>
+        <p>Fortinet Firewall Configuration</p>
+      </div>
+
+      <div class="card hidden">
+        <h3>Technical Support</h3>
+        <p>Computer Troubleshooting and Hardware Maintenance</p>
+      </div>
+
+      <div class="card hidden">
+        <h3>Software Skills</h3>
+        <p>Microsoft Office, Adobe Photoshop, OBS Setup</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- EXPERIENCE -->
+
+  <section id="experience">
+
+    <h2 class="section-title hidden">Freelance Technician</h2>
+
+    <div class="timeline">
+
+      <div class="card hidden">
+        <h3>We accept computer repair</h3>
+        <h4>around manila</h4>
+        <p><strong>our services</strong></p>
+
+        <br>
+
+        <ul>
+          <li>Computer Build Setup</li>
+          <li>Install and update software and maintain systems.</li>
+          <li>Cleaning Services</li>
+          <li>Bypass Password and Reformat</li>
+          <li>OS and MS Office Installation</li>
+          <li>Office Network Setup</li>
+          <li>Upgrade your Laptop and PC</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+
+  <section id="contact">
+
+    <h2 class="section-title hidden">Contact</h2>
+
+    <div class="contact-box hidden">
+      <p>📍 Pasay City</p>
+      <p>📞 +63 993 301 5934</p>
+      <p>📧 renzon9090@gmail.com</p>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+    © 2026 Renzon Portfolio | All Rights Reserved
+  </footer>
+
+
+  <script>
+
+    // MOBILE MENU
+
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+
+    // SCROLL ANIMATION
+
+    const hiddenElements = document.querySelectorAll('.hidden');
+
+    const showOnScroll = () => {
+
+      hiddenElements.forEach(el => {
+
+        const top = el.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if(top < windowHeight - 100){
+          el.classList.add('show');
+        }
+
+      });
+
+    };
+
+    window.addEventListener('scroll', showOnScroll);
+
+    showOnScroll();
+
+  </script>
+
+</body>
+</html>
