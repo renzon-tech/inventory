@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wanderly — Explore Beyond</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            color: #17211f;
+            background: #f8faf9;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+            padding: 25px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #7ee2bd;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            opacity: .9;
+            transition: .3s;
+        }
+
+        .nav-links a:hover {
+            color: #7ee2bd;
+        }
+
+        .nav-btn {
+            padding: 12px 22px;
+            border: 1px solid rgba(255,255,255,.5);
+            border-radius: 30px;
+            transition: .3s;
+        }
+
+        .nav-btn:hover {
+            background: white;
+            color: #17211f;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 760px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 120px 6% 170px;
+            color: white;
+            overflow: hidden;
+
+            background:
+                linear-gradient(90deg, rgba(4,23,22,.72), rgba(4,23,22,.18)),
+                url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85")
+                center/cover no-repeat;
+        }
+
+        .hero-content {
+            max-width: 720px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,.14);
+            backdrop-filter: blur(10px);
+            padding: 9px 15px;
+            border-radius: 30px;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(52px, 7vw, 88px);
+            line-height: .98;
+            letter-spacing: -3px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #7ee2bd;
+        }
+
+        .hero p {
+            max-width: 580px;
+            color: rgba(255,255,255,.84);
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+        }
+
+        .primary-btn {
+            border: none;
+            background: #7ee2bd;
+            color: #10231f;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(126,226,189,.25);
+        }
+
+        .secondary-btn {
+            padding: 14px 25px;
+            border: 1px solid rgba(255,255,255,.45);
+            border-radius: 30px;
+            transition: .3s;
+        }
+
+        .secondary-btn:hover {
+            background: white;
+            color: #17211f;
+        }
+
+        /* =========================
+           BOOKING SEARCH
+        ========================= */
+
+        .booking-wrapper {
+            position: relative;
+            z-index: 5;
+            margin-top: -65px;
+            padding: 0 6%;
+        }
+
+        .booking-box {
+            background: white;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(19,45,39,.13);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .input-group label {
+            display: block;
+            color: #7c8885;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #e3e9e7;
+            border-radius: 12px;
+            padding: 0 14px;
+            outline: none;
+            color: #17211f;
+            background: #fbfcfc;
+        }
+
+        .search-btn {
+            height: 50px;
+            padding: 0 25px;
+            border: none;
+            border-radius: 12px;
+            background: #17211f;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .search-btn:hover {
+            background: #274f47;
+        }
+
+        /* =========================
+           GENERAL
+        ========================= */
+
+        section {
+            padding: 100px 6%;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 40px;
+        }
+
+        .eyebrow {
+            color: #39a985;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 45px;
+            line-height: 1.1;
+        }
+
+        .section-heading p {
+            max-width: 430px;
+            color: #78827f;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           DESTINATIONS
+        ========================= */
+
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .destination-card {
+            height: 390px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .6s;
+        }
+
+        .destination-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .destination-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            padding: 25px;
+            color: white;
+            background: linear-gradient(transparent 40%, rgba(0,0,0,.7));
+        }
+
+        .destination-overlay h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 28px;
+        }
+
+        .destination-overlay span {
+            font-size: 13px;
+            opacity: .85;
+        }
+
+        /* =========================
+           PACKAGES
+        ========================= */
+
+        .packages {
+            background: #eef5f2;
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(19,45,39,.06);
+            transition: .3s;
+        }
+
+        .package-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .package-image {
+            height: 230px;
+            position: relative;
+        }
+
+        .package-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .price {
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            background: white;
+            padding: 9px 13px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .package-content {
+            padding: 22px;
+        }
+
+        .rating {
+            color: #e5a72d;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .package-content h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .package-content p {
+            color: #7c8885;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .package-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #edf0ef;
+            padding-top: 16px;
+        }
+
+        .book-link {
+            color: #269675;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-images {
+            position: relative;
+            height: 550px;
+        }
+
+        .about-img-one {
+            width: 75%;
+            height: 430px;
+            object-fit: cover;
+            border-radius: 25px;
+        }
+
+        .about-img-two {
+            position: absolute;
+            width: 45%;
+            height: 270px;
+            object-fit: cover;
+            right: 0;
+            bottom: 0;
+            border: 10px solid #f8faf9;
+            border-radius: 25px;
+        }
+
+        .about-content h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .about-content > p {
+            color: #78827f;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .feature {
+            display: flex;
+            gap: 12px;
+        }
+
+        .feature-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #dff5ed;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+
+        .feature h4 {
+            margin-bottom: 4px;
+        }
+
+        .feature p {
+            color: #89918f;
+            font-size: 13px;
+        }
+
+        /* =========================
+           REVIEWS
+        ========================= */
+
+        .reviews {
+            background: #17211f;
+            color: white;
+        }
+
+        .reviews .section-heading p {
+            color: #a9b3b0;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .review-card {
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .review-card .stars {
+            color: #f2bd4e;
+            margin-bottom: 20px;
+        }
+
+        .review-card > p {
+            color: #d0d7d5;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .reviewer img {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .reviewer small {
+            display: block;
+            color: #899592;
+            margin-top: 3px;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            padding: 90px 6%;
+        }
+
+        .cta-box {
+            min-height: 350px;
+            border-radius: 30px;
+            padding: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+
+            background:
+                linear-gradient(90deg, rgba(15,52,44,.9), rgba(15,52,44,.3)),
+                url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1600&q=85")
+                center/cover;
+        }
+
+        .cta-box h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 50px;
+            max-width: 650px;
+            margin-bottom: 15px;
+        }
+
+        .cta-box p {
+            color: rgba(255,255,255,.8);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #0f1715;
+            color: white;
+            padding: 60px 6% 25px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            padding-bottom: 45px;
+        }
+
+        footer h3 {
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: #8f9996;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        footer h4 {
+            margin-bottom: 15px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer li {
+            margin-bottom: 10px;
+            color: #8f9996;
+            font-size: 14px;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,.08);
+            padding-top: 20px;
+            color: #737d7a;
+            font-size: 13px;
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.65);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            width: 100%;
+            max-width: 520px;
+            border-radius: 22px;
+            padding: 30px;
+            position: relative;
+            animation: modalIn .3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 18px;
+            border: none;
+            background: #f0f3f2;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .modal-box h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .modal-box > p {
+            color: #7c8885;
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .form-field {
+            margin-bottom: 15px;
+        }
+
+        .form-field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #dfe6e3;
+            border-radius: 10px;
+            padding: 0 13px;
+            outline: none;
+        }
+
+        .submit-booking {
+            width: 100%;
+            border: none;
+            height: 50px;
+            border-radius: 10px;
+            background: #17211f;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width: 1000px) {
+
+            .destination-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .booking-box {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .package-grid,
+            .review-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .about-images {
+                height: 500px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr;
+            }
+        }
+
+        @media(max-width: 700px) {
+
+            .nav-links {
+                position: absolute;
+                top: 75px;
+                right: 6%;
+                background: white;
+                color: #17211f;
+                width: 220px;
+                padding: 20px;
+                border-radius: 15px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+                display: none;
+                box-shadow: 0 15px 40px rgba(0,0,0,.15);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-btn {
+                border: none;
+                padding: 0;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .hero {
+                min-height: 700px;
+                padding-top: 150px;
+            }
+
+            .hero h1 {
+                font-size: 55px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .booking-box {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 70px 6%;
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .section-heading p {
+                margin-top: 15px;
+            }
+
+            .section-heading h2 {
+                font-size: 38px;
+            }
+
+            .destination-grid,
+            .package-grid,
+            .review-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .destination-card {
+                height: 350px;
+            }
+
+            .about-images {
+                height: 400px;
+            }
+
+            .about-img-one {
+                height: 330px;
+            }
+
+            .about-img-two {
+                height: 190px;
+            }
+
+            .about-content h2 {
+                font-size: 38px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-box {
+                padding: 40px 30px;
+                display: block;
+            }
+
+            .cta-box h2 {
+                font-size: 38px;
+                margin-bottom: 25px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="navbar">
+
+        <a href="#" class="logo">
+            Wander<span>ly</span>
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#destinations">Destinations</a>
+            <a href="#packages">Packages</a>
+            <a href="#about">About</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#contact" class="nav-btn">Contact Us</a>
+        </nav>
+
+        <div class="menu-btn" id="menuBtn">
+            ☰
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="hero-tag">
+                ✦ Your next adventure starts here
+            </div>
+
+            <h1>
+                Travel more.<br>
+                Live <span>beautifully.</span>
+            </h1>
+
+            <p>
+                Discover breathtaking destinations, unforgettable experiences,
+                and carefully selected tours made for travelers who want to
+                explore the world differently.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn" onclick="openBooking()">
+                    Book Your Trip →
+                </button>
+
+                <a href="#destinations" class="secondary-btn">
+                    Explore Destinations
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         BOOKING SEARCH
+    ========================== -->
+
+    <div class="booking-wrapper">
+
+        <div class="booking-box">
+
+            <div class="input-group">
+                <label>Destination</label>
+
+                <select id="searchDestination">
+                    <option value="">Where do you want to go?</option>
+                    <option>Palawan</option>
+                    <option>Boracay</option>
+                    <option>Siargao</option>
+                    <option>Bohol</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Check In</label>
+                <input type="date" id="checkIn">
+            </div>
+
+            <div class="input-group">
+                <label>Check Out</label>
+                <input type="date" id="checkOut">
+            </div>
+
+            <div class="input-group">
+                <label>Travelers</label>
+
+                <select id="travelers">
+                    <option>1 Traveler</option>
+                    <option>2 Travelers</option>
+                    <option>3 Travelers</option>
+                    <option>4 Travelers</option>
+                    <option>5+ Travelers</option>
+                </select>
+            </div>
+
+            <button class="search-btn" onclick="searchTrip()">
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         DESTINATIONS
+    ========================== -->
+
+    <section id="destinations">
+
+        <div class="section-heading">
+
+            <div>
+                <div class="eyebrow">Top destinations</div>
+
+                <h2>
+                    Places worth<br>
+                    remembering.
+                </h2>
+            </div>
+
+            <p>
+                From tropical beaches to hidden island escapes,
+                discover destinations that turn ordinary trips
+                into unforgettable memories.
+            </p>
+
+        </div>
+
+
+        <div class="destination-grid">
+
+            <div class="destination-card">
+
+                <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=80">
+
+                <div class="destination-overlay">
+                    <span>Island Escape</span>
+                    <h3>Palawan</h3>
+                </div>
+
+            </div>
+
+
+            <div class="destination-card">
+
+                <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=900&q=80">
+
+                <div class="destination-overlay">
+                    <span>Beach Paradise</span>
+                    <h3>Boracay</h3>
+                </div>
+
+            </div>
+
+
+            <div class="destination-card">
+
+                <img src="https://images.unsplash.com/photo-1505881502353-a1986add3762?auto=format&fit=crop&w=900&q=80">
+
+                <div class="destination-overlay">
+                    <span>Island Adventure</span>
+                    <h3>Siargao</h3>
+                </div>
+
+            </div>
+
+
+            <div class="destination-card">
+
+                <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=900&q=80">
+
+                <div class="destination-overlay">
+                    <span>Nature & Culture</span>
+                    <h3>Bohol</h3>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PACKAGES
+    ========================== -->
+
+    <section class="packages" id="packages">
+
+        <div class="section-heading">
+
+            <div>
+                <div class="eyebrow">Handpicked experiences</div>
+
+                <h2>
+                    Popular tour<br>
+                    packages.
+                </h2>
+            </div>
+
+            <p>
+                Everything you need for a stress-free trip —
+                accommodation, activities and unforgettable experiences.
+            </p>
+
+        </div>
+
+
+        <div class="package-grid">
+
+            <div class="package-card">
+
+                <div class="package-image">
+
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80">
+
+                    <div class="price">
+                        ₱8,499
+                    </div>
+
+                </div>
+
+                <div class="package-content">
+
+                    <div class="rating">
+                        ★★★★★ 4.9
+                    </div>
+
+                    <h3>Palawan Island Escape</h3>
+
+                    <p>
+                        4 days and 3 nights exploring crystal-clear
+                        waters, hidden lagoons and beautiful islands.
+                    </p>
+
+                    <div class="package-bottom">
+
+                        <span>4 Days / 3 Nights</span>
+
+                        <span class="book-link"
+                              onclick="openBooking('Palawan Island Escape')">
+                            Book Now →
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="package-card">
+
+                <div class="package-image">
+
+                    <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1000&q=80">
+
+                    <div class="price">
+                        ₱6,999
+                    </div>
+
+                </div>
+
+                <div class="package-content">
+
+                    <div class="rating">
+                        ★★★★★ 4.8
+                    </div>
+
+                    <h3>Boracay Beach Getaway</h3>
+
+                    <p>
+                        Enjoy white sand beaches, island hopping,
+                        sunset sailing and the best of Boracay.
+                    </p>
+
+                    <div class="package-bottom">
+
+                        <span>3 Days / 2 Nights</span>
+
+                        <span class="book-link"
+                              onclick="openBooking('Boracay Beach Getaway')">
+                            Book Now →
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="package-card">
+
+                <div class="package-image">
+
+                    <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=1000&q=80">
+
+                    <div class="price">
+                        ₱7,499
+                    </div>
+
+                </div>
+
+                <div class="package-content">
+
+                    <div class="rating">
+                        ★★★★★ 4.9
+                    </div>
+
+                    <h3>Siargao Adventure</h3>
+
+                    <p>
+                        Surf, explore beautiful lagoons and experience
+                        the laid-back island lifestyle of Siargao.
+                    </p>
+
+                    <div class="package-bottom">
+
+                        <span>4 Days / 3 Nights</span>
+
+                        <span class="book-link"
+                              onclick="openBooking('Siargao Adventure')">
+                            Book Now →
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================== -->
+
+    <section class="about" id="about">
+
+        <div class="about-images">
+
+            <img
+                class="about-img-one"
+                src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1000&q=85"
+            >
+
+            <img
+                class="about-img-two"
+                src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=85"
+            >
+
+        </div>
+
+
+        <div class="about-content">
+
+            <div class="eyebrow">
+                Why choose Wanderly
+            </div>
+
+            <h2>
+                Your journey.<br>
+                Our passion.
+            </h2>
+
+            <p>
+                We believe travel should be more than simply visiting a place.
+                That's why we create carefully designed experiences that let
+                you discover new cultures, meet new people and create memories
+                that stay with you.
+            </p>
+
+
+            <div class="features">
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        🌎
+                    </div>
+
+                    <div>
+                        <h4>Curated Trips</h4>
+                        <p>Handpicked destinations and experiences.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        🛡️
+                    </div>
+
+                    <div>
+                        <h4>Safe & Secure</h4>
+                        <p>Your booking is always protected.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        💳
+                    </div>
+
+                    <div>
+                        <h4>Best Prices</h4>
+                        <p>Great experiences without overpaying.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        💬
+                    </div>
+
+                    <div>
+                        <h4>24/7 Support</h4>
+                        <p>We're here whenever you need us.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         REVIEWS
+    ========================== -->
+
+    <section class="reviews" id="reviews">
+
+        <div class="section-heading">
+
+            <div>
+                <div class="eyebrow">
+                    Traveler stories
+                </div>
+
+                <h2>
+                    Loved by<br>
+                    travelers.
+                </h2>
+            </div>
+
+            <p>
+                Thousands of travelers have trusted Wanderly
+                to make their journeys memorable.
+            </p>
+
+        </div>
+
+
+        <div class="review-grid">
+
+            <div class="review-card">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "Everything was perfectly organized.
+                    We didn't have to worry about anything and
+                    simply enjoyed our trip. Palawan was amazing!"
+                </p>
+
+                <div class="reviewer">
+
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg">
+
+                    <div>
+                        <strong>Sophia Reyes</strong>
+                        <small>Manila, Philippines</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="review-card">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "The booking process was incredibly easy.
+                    The package was worth every peso. Definitely
+                    booking my next trip here."
+                </p>
+
+                <div class="reviewer">
+
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg">
+
+                    <div>
+                        <strong>Daniel Cruz</strong>
+                        <small>Cebu, Philippines</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="review-card">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "Beautiful destinations, friendly staff and
+                    great service. Wanderly made our anniversary
+                    trip truly special."
+                </p>
+
+                <div class="reviewer">
+
+                    <img src="https://randomuser.me/api/portraits/women/65.jpg">
+
+                    <div>
+                        <strong>Angela Santos</strong>
+                        <small>Davao, Philippines</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CTA
+    ========================== -->
+
+    <section class="cta" id="contact">
+
+        <div class="cta-box">
+
+            <div>
+
+                <h2>
+                    The world is waiting for you.
+                </h2>
+
+                <p>
+                    Start planning your next unforgettable adventure today.
+                </p>
+
+            </div>
+
+            <button class="primary-btn" onclick="openBooking()">
+                Start Booking →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3 class="logo">
+                    Wander<span>ly</span>
+                </h3>
+
+                <p>
+                    Making travel simple, beautiful and unforgettable.
+                    Discover your next adventure with us.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>Explore</h4>
+
+                <ul>
+                    <li>Destinations</li>
+                    <li>Tour Packages</li>
+                    <li>Travel Guide</li>
+                    <li>Special Offers</li>
+                </ul>
+
+            </div>
+
+
+            <div>
+
+                <h4>Company</h4>
+
+                <ul>
+                    <li>About Us</li>
+                    <li>Contact</li>
+                    <li>Careers</li>
+                    <li>FAQs</li>
+                </ul>
+
+            </div>
+
+
+            <div>
+
+                <h4>Contact</h4>
+
+                <ul>
+                    <li>hello@wanderly.com</li>
+                    <li>+63 912 345 6789</li>
+                    <li>Manila, Philippines</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+            © 2026 Wanderly Travel. All rights reserved.
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         BOOKING MODAL
+    ========================== -->
+
+    <div class="modal" id="bookingModal">
+
+        <div class="modal-box">
+
+            <button class="close-modal" onclick="closeBooking()">
+                ×
+            </button>
+
+            <h2>Book your trip</h2>
+
+            <p>
+                Fill in your details and we'll take care of the rest.
+            </p>
+
+
+            <form id="bookingForm">
+
+                <div class="form-field">
+
+                    <label>Tour Package</label>
+
+                    <select id="packageSelect">
+
+                        <option>Choose a package</option>
+                        <option>Palawan Island Escape</option>
+                        <option>Boracay Beach Getaway</option>
+                        <option>Siargao Adventure</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-field">
+
+                        <label>Full Name</label>
+
+                        <input
+                            type="text"
+                            placeholder="Juan Dela Cruz"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-field">
+
+                        <label>Phone</label>
+
+                        <input
+                            type="tel"
+                            placeholder="+63 912 345 6789"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-field">
+
+                        <label>Travel Date</label>
+
+                        <input type="date" required>
+
+                    </div>
+
+
+                    <div class="form-field">
+
+                        <label>Travelers</label>
+
+                        <select>
+
+                            <option>1 Traveler</option>
+                            <option>2 Travelers</option>
+                            <option>3 Travelers</option>
+                            <option>4 Travelers</option>
+                            <option>5+ Travelers</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label>Email Address</label>
+
+                    <input
+                        type="email"
+                        placeholder="you@example.com"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-booking"
+                >
+                    Confirm Booking
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        const navLinks = document.getElementById("navLinks");
+        const menuBtn = document.getElementById("menuBtn");
+
+        menuBtn.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
+
+
+        // Open booking modal
+
+        function openBooking(packageName = "") {
+
+            const modal = document.getElementById("bookingModal");
+
+            modal.classList.add("active");
+
+            if (packageName) {
+
+                document.getElementById("packageSelect").value =
+                    packageName;
+
+            }
+
+        }
+
+
+        // Close booking modal
+
+        function closeBooking() {
+
+            document
+                .getElementById("bookingModal")
+                .classList.remove("active");
+
+        }
+
+
+        // Close modal when clicking outside
+
+        document
+            .getElementById("bookingModal")
+            .addEventListener("click", function(e) {
+
+                if (e.target === this) {
+                    closeBooking();
+                }
+
+            });
+
+
+        // Search trip
+
+        function searchTrip() {
+
+            const destination =
+                document.getElementById("searchDestination").value;
+
+            const checkIn =
+                document.getElementById("checkIn").value;
+
+            const checkOut =
+                document.getElementById("checkOut").value;
+
+            if (!destination) {
+
+                alert("Please select your destination.");
+
+                return;
+            }
+
+            if (!checkIn || !checkOut) {
+
+                alert("Please select your travel dates.");
+
+                return;
+            }
+
+            alert(
+                "Searching trips to " +
+                destination +
+                "..."
+            );
+
+            document
+                .getElementById("packages")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        }
+
+
+        // Booking form
+
+        document
+            .getElementById("bookingForm")
+            .addEventListener("submit", function(e) {
+
+                e.preventDefault();
+
+                alert(
+                    "🎉 Booking request submitted successfully!\n\n" +
+                    "Our travel team will contact you shortly."
+                );
+
+                this.reset();
+
+                closeBooking();
+
+            });
+
+
+        // Close mobile menu after clicking a link
+
+        document
+            .querySelectorAll(".nav-links a")
+            .forEach(link => {
+
+                link.addEventListener("click", () => {
+
+                    navLinks.classList.remove("active");
+
+                });
+
+            });
+
+    </script>
+
+</body>
+</html>
